@@ -6,11 +6,3 @@
    - name: Provision transcoding instances AWS                       
      ansible.builtin.shell:
       cmd: ping -c 1 8.8.8.8
-
-   - name: Installing FFMPEG                  
-     ansible.builtin.shell:
-      cmd: ping -c 1 8.8.8.8
-
-   - name: Attaching central storage          
-     ansible.builtin.shell:
-      cmd: ping -c 10 8.8.8.8

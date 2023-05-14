@@ -3,6 +3,13 @@
   hosts: localhost
   tasks:
 
+   - name: Install components
+     yum:
+      name: iputils
+      state: present
+
+
    - name: Provision transcoding instances AWS                       
      ansible.builtin.shell:
       cmd: ping -c 1 8.8.8.8
+      

@@ -1,0 +1,11 @@
+---
+- name: Create Video Encoder
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+
+   - block:
+     - name: Provision
+       debug:
+         msg: "Deploying RHEL Instance with AMI"

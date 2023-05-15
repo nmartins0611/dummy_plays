@@ -5,7 +5,10 @@
 
   tasks:
 
-   - block:
-     - name: Provision
-       debug:
-         msg: "Deploying RHEL Instance with AMI"
+   - name: deploying instance
+     ansible.builtin.wait_for:
+     timeout: 20
+     delegate_to: localhost
+    
+   - debug:
+       msg: "Deploying RHEL Instance with AMI"

@@ -4,11 +4,6 @@
   gather_facts: false
 
   tasks:
-
-   - name: deploying instance
-     ansible.builtin.wait_for:
-     timeout: 20
-     delegate_to: localhost
     
    - debug:
        msg: "Deploying RHEL Instance with AMI"

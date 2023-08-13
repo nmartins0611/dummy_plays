@@ -1,0 +1,50 @@
+---
+- name: Configure RHEL Server
+  hosts: your_server_hostname
+  become: true
+
+  tasks:
+    - name: Create users
+      user:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - angron
+        - horus
+        - Gulliman
+        - Sangiunious
+
+    - name: Install Apache package
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and enable Apache service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Open firewall for port 80
+      firewalld:
+        port: 80/tcp
+        permanent: true
+        state: enabled
+      notify: Restart firewalld
+
+    - name: Create MOTD file
+      copy:
+        content: |
+          ***********************************************
+          Welcome to the Lab Environment
+          Access is limited and monitored.
+          Enjoy your time in the lab!
+          ***********************************************
+        dest: /etc/motd
+        mode: '0644'
+
+  handlers:
+    - name: Restart firewalld
+      service:
+        name: firewalld
+        state: restarted

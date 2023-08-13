@@ -1,6 +1,6 @@
 ---
 - name: Configure RHEL Server
-  hosts: your_server_hostname
+  hosts: infra
   become: true
 
   tasks:

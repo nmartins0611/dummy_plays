@@ -1,0 +1,24 @@
+---
+- name: Check Firewall and Apache Status
+  hosts: infra
+  gather_facts: yes
+  tasks:
+    - name: Check if firewalld service is active
+      systemd:
+        name: firewalld
+        state: started
+      register: firewalld_status
+      ignore_errors: yes  # In case firewalld is not installed
+
+    - name: Restart webserver
+      systemd:
+        name: httpd
+        state: started
+      register: apache_status
+
+    - name: Check if ports 80 and 443 are open
+      wait_for:
+        host: localhost
+        port: 80
+        state: started
+      register: port_80_status

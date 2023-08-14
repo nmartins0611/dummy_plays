@@ -23,16 +23,9 @@
         state: started
       register: port_80_status
 
-    - wait_for:
-        host: localhost
-        port: 443
-        state: started
-      register: port_443_status
-
     - name: Display Results
       debug:
         msg: >
           Firewalld Status: {{ firewalld_status.changed | ternary("Active", "Inactive or Not Installed") }},
           Apache Status: {{ apache_status.changed | ternary("Running", "Not Running") }},
           Port 80 Status: {{ port_80_status.changed | ternary("Open", "Closed") }},
-          Port 443 Status: {{ port_443_status.changed | ternary("Open", "Closed") }}

@@ -10,11 +10,10 @@
       register: firewalld_status
       ignore_errors: yes  # In case firewalld is not installed
 
-    - name: Restart webserver
-      systemd:
-        name: httpd
-        state: started
-      register: apache_status
+    - name: Restart Webserver
+      ansible.builtin.service:
+       name: httpd
+       state: started
 
     - name: Check if ports 80 and 443 are open
       wait_for:

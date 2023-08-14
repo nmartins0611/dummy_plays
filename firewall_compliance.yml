@@ -1,6 +1,6 @@
 ---
 - name: Check Firewall and Apache Status
-  hosts: your_target_server
+  hosts: infra
   gather_facts: yes
   tasks:
     - name: Check if firewalld service is active

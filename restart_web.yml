@@ -15,9 +15,9 @@
 #       name: httpd
 #       state: started
 
-    - name: Check if ports 80 and 443 are open
-      wait_for:
-        host: localhost
-        port: 80
-        state: started
-      register: port_80_status
+#    - name: Check if ports 80 and 443 are open
+ #     wait_for:
+ #       host: localhost
+  #      port: 80
+  #      state: started
+  #    register: port_80_status

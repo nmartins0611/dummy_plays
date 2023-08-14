@@ -1,0 +1,38 @@
+---
+- name: Check Firewall and Apache Status
+  hosts: your_target_server
+  gather_facts: yes
+  tasks:
+    - name: Check if firewalld service is active
+      systemd:
+        name: firewalld
+        state: started
+      register: firewalld_status
+      ignore_errors: yes  # In case firewalld is not installed
+
+    - name: Check if Apache is running
+      systemd:
+        name: httpd
+        state: started
+      register: apache_status
+
+    - name: Check if ports 80 and 443 are open
+      wait_for:
+        host: localhost
+        port: 80
+        state: started
+      register: port_80_status
+
+    - wait_for:
+        host: localhost
+        port: 443
+        state: started
+      register: port_443_status
+
+    - name: Display Results
+      debug:
+        msg: >
+          Firewalld Status: {{ firewalld_status.changed | ternary("Active", "Inactive or Not Installed") }},
+          Apache Status: {{ apache_status.changed | ternary("Running", "Not Running") }},
+          Port 80 Status: {{ port_80_status.changed | ternary("Open", "Closed") }},
+          Port 443 Status: {{ port_443_status.changed | ternary("Open", "Closed") }}
